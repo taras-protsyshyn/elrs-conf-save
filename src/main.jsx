@@ -8,6 +8,8 @@ ReactDOM.createRoot(
     const panel = document.getElementById("pane-justified-1").querySelectorAll(".mui-panel")[1];
 
     const app = document.createElement("div");
+    app.id = "app";
+
     panel.appendChild(app);
     return app;
   })(),
