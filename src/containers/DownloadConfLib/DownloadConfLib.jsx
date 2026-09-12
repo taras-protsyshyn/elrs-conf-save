@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../../components";
+import { MdLibraryBooks } from "react-icons/md";
 
 const parseConfiguration = async (file) => {
   const text = await file.text();
@@ -37,8 +38,8 @@ export const DownloadConfLib = ({ onDownload }) => {
   };
 
   return (
-    <div>
-      <Button onClick={handleClick}>Завантажити Бібліотеку КонфігураційButton</Button>
-    </div>
+    <Button onClick={handleClick}>
+      <MdLibraryBooks />
+    </Button>
   );
 };
