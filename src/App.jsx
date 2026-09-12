@@ -1,15 +1,9 @@
-import { useState } from "react";
 import "./App.css";
-import { DownloadConfLib } from "./containers";
+import { SelectConfig } from "./containers";
+import { useModalRoot } from "./components/Modal/hooks/useModalRoot";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <DownloadConfLib onDownload={(models) => console.log(models)} />
-    </div>
-  );
+  return <SelectConfig />;
 }
 
 export default App;

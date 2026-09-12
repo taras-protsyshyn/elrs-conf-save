@@ -1,16 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import App from "./App";
 import "./index.css";
 
 ReactDOM.createRoot(
   (() => {
-    const panel = document.getElementById("pane-justified-1").querySelectorAll(".mui-panel")[1];
+    const panel = document.body;
 
     const app = document.createElement("div");
-    app.id = "app";
+    app.id = "elrs-config-saver";
 
-    panel.appendChild(app);
+    panel.prepend(app);
+
     return app;
   })(),
 ).render(

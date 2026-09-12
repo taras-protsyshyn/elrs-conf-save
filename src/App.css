@@ -1,6 +1,10 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+#elrs-config-saver {
+  padding: 16px;
   text-align: center;
+  position: fixed;
+  top: clamp(8px, 2rem, 16px);
+  right: clamp(8px, 2rem, 16px);
+  z-index: 1000;
+  border: 1px solid #424242;
+  border-radius: 8px;
 }
