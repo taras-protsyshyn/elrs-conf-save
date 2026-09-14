@@ -1,6 +1,12 @@
 import React from "react";
-import { Button } from "../../components";
 import { MdLibraryBooks } from "react-icons/md";
+
+import {
+  useELRSConfigsContext,
+  useELRSConfigsDispatcherContext,
+} from "../../context/ELRSConfigsContext";
+import { useProductTypeContext } from "../../context/ProductTypeContext";
+import { Button } from "../../components";
 
 const parseConfiguration = async (file) => {
   const text = await file.text();
@@ -14,7 +20,11 @@ const parseConfiguration = async (file) => {
 };
 
 export const DownloadConfLib = ({ onDownload }) => {
-  const handleClick = async () => {
+  const configs = useELRSConfigsContext();
+  const dispatch = useELRSConfigsDispatcherContext();
+  const { productType } = useProductTypeContext();
+
+  const downloadConfigLib = async () => {
     try {
       const [fileHandle] = await window.showOpenFilePicker({
         types: [
@@ -29,7 +39,10 @@ export const DownloadConfLib = ({ onDownload }) => {
       const file = await fileHandle.getFile();
       const models = await parseConfiguration(file);
 
-      onDownload?.(models);
+      dispatch({
+        type: "init",
+        configs: models.filter((model) => model.type === productType),
+      });
     } catch (error) {
       if (error.name !== "AbortError") {
         console.error("Помилка читання файлу:", error);
@@ -38,7 +51,14 @@ export const DownloadConfLib = ({ onDownload }) => {
   };
 
   return (
-    <Button onClick={handleClick}>
+    <Button
+      onClick={async () => {
+        if (configs?.length === 0) {
+          await downloadConfigLib();
+        }
+        onDownload?.();
+      }}
+    >
       <MdLibraryBooks />
     </Button>
   );
