@@ -27,6 +27,8 @@ export const DownloadConfLib = ({ onDownload }) => {
   const downloadConfigLib = async () => {
     try {
       const [fileHandle] = await window.showOpenFilePicker({
+        startIn: "documents",
+        suggestedName: "elrs_models.json",
         types: [
           {
             description: "JSON Config File",

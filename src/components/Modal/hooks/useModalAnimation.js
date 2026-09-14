@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useModalAnimation(isOpen, duration = 200) {
+export function useModalAnimation(isOpen, duration = 200, onAnimationEnd = () => {}) {
   const [shouldRender, setShouldRender] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -16,6 +16,7 @@ export function useModalAnimation(isOpen, duration = 200) {
 
       const timer = setTimeout(() => {
         setShouldRender(false);
+        onAnimationEnd();
       }, duration);
 
       return () => clearTimeout(timer);

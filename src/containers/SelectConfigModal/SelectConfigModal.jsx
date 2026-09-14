@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "../../components";
 import {
   useELRSConfigsContext,
@@ -6,29 +6,49 @@ import {
 } from "../../context/ELRSConfigsContext";
 
 import "./SelectConfigModal.css";
+
 export const SelectConfigModal = ({ isOpen, onClose }) => {
   const configs = useELRSConfigsContext();
   const dispatch = useELRSConfigsDispatcherContext();
 
-  const [selectedConfig, setSelectedConfig] = useState(
-    configs?.find((config) => config.selected) || null,
-  );
+  const [selectedConfig, setSelectedConfig] = useState(null);
 
   const handleSelectConfig = (config) => {
     setSelectedConfig(config);
   };
+
+  const handleApply = () => {
+    if (selectedConfig) {
+      const form = document.querySelector("#upload_options");
+
+      for (const prop in selectedConfig.configuration) {
+        const input = form.querySelector(`[name='${prop}']`);
+        console.log(`Setting input for property: ${prop}`, input);
+        if (input) {
+          input.value = selectedConfig.configuration[prop];
+        }
+      }
+
+      dispatch({ type: "select", id: selectedConfig.id });
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    isOpen && setSelectedConfig(configs?.find((config) => config.selected) || null);
+  }, [isOpen]);
 
   return (
     <Modal
       title="Вибір конфігурації"
       isOpen={isOpen}
       onClose={onClose}
+      onClosed={() => setSelectedConfig(null)}
       bodyClassName="modal-body"
       footerClassName="footer"
       footer={
         <>
-          <Button danger>Видалити</Button>
-          <Button>Застосувати</Button>
+          <Button onClick={handleApply}>Застосувати</Button>
         </>
       }
     >

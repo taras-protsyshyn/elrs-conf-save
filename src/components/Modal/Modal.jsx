@@ -17,10 +17,12 @@ export const Modal = ({
   className = "",
   footer,
   footerClassName = "",
+  onClosed,
 }) => {
   const modalRoot = useModalRoot();
   const modalRef = React.useRef(null);
-  const { shouldRender, isAnimating } = useModalAnimation(isOpen);
+
+  const { shouldRender, isAnimating } = useModalAnimation(isOpen, 200, onClosed);
   useFocusTrap(modalRef, isOpen);
   useBodyScrollLock(isOpen);
   useEscapeHandler(isOpen ? onClose : null);

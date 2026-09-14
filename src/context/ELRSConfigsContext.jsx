@@ -13,6 +13,15 @@ function configsReducer(configs, action) {
     case "added": {
       return [...configs, action.config];
     }
+    case "select": {
+      return configs.map((c) => {
+        if (c.id === action.id) {
+          return { ...c, selected: true };
+        } else {
+          return { ...c, selected: false };
+        }
+      });
+    }
     case "changed": {
       return configs.map((c) => {
         if (c.id === action.config.id) {
