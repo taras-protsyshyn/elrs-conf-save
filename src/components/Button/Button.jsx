@@ -1,5 +1,11 @@
 import React from "react";
 
-export const Button = ({ children, onClick }) => {
-  return <button onClick={onClick}>{children}</button>;
+import "./button.css";
+
+export const Button = ({ children, onClick, danger }) => {
+  return (
+    <button onClick={onClick} className={danger ? "danger" : ""}>
+      {children}
+    </button>
+  );
 };
