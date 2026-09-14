@@ -12,16 +12,19 @@
 }
 
 .modal-content {
-  width: max(50vw, 300px);
-  min-height: 300px;
-  background: white;
+  min-width: max(60vw, 800px);
+  min-height: 380px;
+  background: #424242;
   border-radius: 8px;
-  padding: 20px;
   max-width: 500px;
   max-height: 80vh;
   overflow-y: auto;
   position: relative;
+  color: #f7f7f7;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-close-button {
@@ -45,14 +48,9 @@
   animation: fadeIn 0.2s ease-out;
 }
 
-.modal-content {
-  animation: scaleIn 0.2s ease-out;
-  display: flex;
-  flex-direction: column;
-}
-
 .modal-title {
   margin: 0px;
+  padding: 20px;
 }
 
 .modal-body {
@@ -60,8 +58,7 @@
 }
 
 .modal-footer {
-  margin-top: 20px;
-  text-align: right;
+  padding: 20px;
 }
 
 @keyframes fadeIn {

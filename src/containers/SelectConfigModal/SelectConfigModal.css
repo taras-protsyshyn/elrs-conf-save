@@ -1,0 +1,31 @@
+.modal-body {
+  display: flex;
+  margin-top: 16px;
+}
+.config-list {
+  min-width: 160px;
+}
+
+.config-item {
+  button {
+    background-color: #424242;
+    border-radius: 0;
+    width: 100%;
+  }
+}
+.config-item.selected {
+  button {
+    background-color: #4d4d4d;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selected-config {
+  flex-grow: 1;
+  padding: 16px;
+  background-color: #4d4d4d;
+}

@@ -9,7 +9,15 @@ import { useModalAnimation } from "./hooks/useModalAnimation";
 
 import "./modal.css";
 
-export const Modal = ({ isOpen, onClose, children, title, className = "", footer }) => {
+export const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  className = "",
+  footer,
+  footerClassName = "",
+}) => {
   const modalRoot = useModalRoot();
   const modalRef = React.useRef(null);
   const { shouldRender, isAnimating } = useModalAnimation(isOpen);
@@ -43,7 +51,7 @@ export const Modal = ({ isOpen, onClose, children, title, className = "", footer
         </button>
 
         <div className="modal-body">{children}</div>
-        <div className="modal-footer">{footer}</div>
+        <div className={`modal-footer ${footerClassName}`}>{footer}</div>
       </div>
     </div>,
     modalRoot,
