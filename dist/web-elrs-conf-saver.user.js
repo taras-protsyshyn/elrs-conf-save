@@ -2,7 +2,8 @@
 // @name       web-elrs-conf-saver
 // @namespace  npm/vite-plugin-monkey
 // @version    0.0.0
-// @match      http://127.0.0.1:5500
+// @match      http://127.0.0.1:5500/
+// @match      http://127.0.0.1:5500/index.html
 // @grant      GM_addStyle
 // ==/UserScript==
 
