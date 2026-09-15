@@ -18,6 +18,7 @@ export const Modal = ({
   footer,
   footerClassName = "",
   onClosed,
+  bodyClassName = "",
 }) => {
   const modalRoot = useModalRoot();
   const modalRef = React.useRef(null);
@@ -52,7 +53,7 @@ export const Modal = ({
           ×
         </button>
 
-        <div className="modal-body">{children}</div>
+        <div className={["modal-body", bodyClassName].filter(Boolean).join(" ")}>{children}</div>
         <div className={`modal-footer ${footerClassName}`}>{footer}</div>
       </div>
     </div>,

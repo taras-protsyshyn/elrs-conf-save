@@ -4,6 +4,7 @@ import {
   useELRSConfigsContext,
   useELRSConfigsDispatcherContext,
 } from "../../context/ELRSConfigsContext";
+import { applyConfigToForm } from "../../services/FormService";
 
 import "./SelectConfigModal.css";
 
@@ -19,15 +20,7 @@ export const SelectConfigModal = ({ isOpen, onClose }) => {
 
   const handleApply = () => {
     if (selectedConfig) {
-      const form = document.querySelector("#upload_options");
-
-      for (const prop in selectedConfig.configuration) {
-        const input = form.querySelector(`[name='${prop}']`);
-        console.log(`Setting input for property: ${prop}`, input);
-        if (input) {
-          input.value = selectedConfig.configuration[prop];
-        }
-      }
+      applyConfigToForm(selectedConfig);
 
       dispatch({ type: "select", id: selectedConfig.id });
       onClose();
@@ -44,7 +37,7 @@ export const SelectConfigModal = ({ isOpen, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       onClosed={() => setSelectedConfig(null)}
-      bodyClassName="modal-body"
+      bodyClassName="select-config-modal-body"
       footerClassName="footer"
       footer={
         <>

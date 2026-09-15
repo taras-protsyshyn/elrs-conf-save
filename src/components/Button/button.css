@@ -29,3 +29,9 @@ button:focus-visible {
   background-color: #ff7875;
   border-color: #ff4d4f;
 }
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  border-color: transparent;
+}

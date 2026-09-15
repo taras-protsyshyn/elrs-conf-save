@@ -1,0 +1,16 @@
+.save-new-conf {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.save-new-conf__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-new-conf__footer__plural {
+  justify-content: space-between;
+  gap: 8px;
+}

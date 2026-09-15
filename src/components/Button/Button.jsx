@@ -2,9 +2,9 @@ import React from "react";
 
 import "./button.css";
 
-export const Button = ({ children, onClick, danger }) => {
+export const Button = ({ children, onClick, danger, ...props }) => {
   return (
-    <button onClick={onClick} className={danger ? "danger" : ""}>
+    <button onClick={onClick} className={danger ? "danger" : ""} {...props}>
       {children}
     </button>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { MdLibraryBooks } from "react-icons/md";
+import * as FileService from "../../services/FileService";
 
 import {
   useELRSConfigsContext,
@@ -8,17 +9,6 @@ import {
 import { useProductTypeContext } from "../../context/ProductTypeContext";
 import { Button } from "../../components";
 
-const parseConfiguration = async (file) => {
-  const text = await file.text();
-  const data = await JSON.parse(text);
-
-  const models = [];
-  for (let el of data.models) {
-    models.push({ ...el, configuration: JSON.parse(el.configuration) });
-  }
-  return models;
-};
-
 export const DownloadConfLib = ({ onDownload }) => {
   const configs = useELRSConfigsContext();
   const dispatch = useELRSConfigsDispatcherContext();
@@ -26,20 +16,7 @@ export const DownloadConfLib = ({ onDownload }) => {
 
   const downloadConfigLib = async () => {
     try {
-      const [fileHandle] = await window.showOpenFilePicker({
-        startIn: "documents",
-        suggestedName: "elrs_models.json",
-        types: [
-          {
-            description: "JSON Config File",
-            accept: { "application/json": [".json"] },
-          },
-        ],
-        multiple: false,
-      });
-
-      const file = await fileHandle.getFile();
-      const models = await parseConfiguration(file);
+      const models = await FileService.read();
 
       dispatch({
         type: "init",

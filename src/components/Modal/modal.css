@@ -13,7 +13,7 @@
 
 .modal-content {
   min-width: max(60vw, 800px);
-  min-height: 380px;
+  min-height: 80px;
   background: #424242;
   border-radius: 8px;
   max-width: 500px;

@@ -1,6 +1,7 @@
-.modal-body {
+.select-config-modal-body {
   display: flex;
   margin-top: 16px;
+  min-height: 300px;
 }
 .config-list {
   min-width: 160px;

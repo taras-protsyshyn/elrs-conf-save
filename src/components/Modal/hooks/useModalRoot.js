@@ -15,7 +15,7 @@ export function useModalRoot() {
     setModalRoot(root);
 
     return () => {
-      if (root && root.childNodes.length === 0) {
+      if (root && root.childNodes.length === 0 && document.body.contains(root)) {
         document.body.removeChild(root);
       }
     };

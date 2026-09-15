@@ -10,7 +10,7 @@ function configsReducer(configs, action) {
     case "init": {
       return action.configs;
     }
-    case "added": {
+    case "add": {
       return [...configs, action.config];
     }
     case "select": {
@@ -22,7 +22,7 @@ function configsReducer(configs, action) {
         }
       });
     }
-    case "changed": {
+    case "update": {
       return configs.map((c) => {
         if (c.id === action.config.id) {
           return action.config;

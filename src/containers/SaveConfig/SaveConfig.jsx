@@ -1,15 +1,17 @@
-import React from "react";
-import { Button } from "../../components";
+import React, { useState } from "react";
 import { MdSave } from "react-icons/md";
+import { SaveConfModal } from "./SaveConfModal/SaveConfModal";
+import { Button } from "../../components";
 
-export const SaveConfig = ({ onSave }) => {
-  const handleClick = () => {
-    onSave?.();
-  };
+export const SaveConfig = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <Button onClick={handleClick}>
-      <MdSave />
-    </Button>
+    <>
+      <Button onClick={() => setIsModalOpen(true)}>
+        <MdSave />
+      </Button>
+      <SaveConfModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 };
