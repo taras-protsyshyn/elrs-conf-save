@@ -10,7 +10,7 @@ export default defineConfig({
       entry: "src/main.jsx",
       userscript: {
         namespace: "npm/vite-plugin-monkey",
-        match: ["http://127.0.0.1:5500"],
+        match: ["http://127.0.0.1:5500/", "http://127.0.0.1:5500/index.html"],
       },
     }),
   ],
