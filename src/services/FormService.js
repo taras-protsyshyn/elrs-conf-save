@@ -1,41 +1,7 @@
-const defaultConfig = {
-  "wifi-on-interval": 60,
-  "tlm-interval": 240,
-  "fan-runtime": 30,
-  "unlock-higher-power": true,
-  "airport-uart-baud": 460800,
-  "is-airport": false,
-  domain: 1,
-  "uart-inverted": false,
-  customised: true,
-  custom_freq: "0,0,0",
-  custom_freq2: "0,0,0,0",
-  encryption_key: "",
-  binding_key: "",
-  vx_control: "0,0,0,0,0,0,0,0,0",
-  vx_control2: "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-  vtx_power: "0,0,0,0,0,0,0",
-  vx_presets:
-    "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-  vx_bands: "A,B,E,F,R,L,X,Y",
-  vx_filter: "0,1,10",
-  vx_table: "",
-  custom_crsf_baud: "-400000,420000,0",
-  auto_tune: "0,0,0,0,0",
-  tx_id: "",
-  tx_lock: "",
-  ew_scanner: "0,0,0",
-  multi_band: "0,0,0,0",
-  retrans: "0,0,0,0,0,0,0",
-  tx_power: "0,0,0,0,0,0,0",
-  brand: "",
-  relay: "0,0,0,0,0,0",
-  fast_switch: "0,0,0,0,0,0,0,0",
-  lang: 0,
-  allow_msp: 0,
-  alt_keys: "0,0,0",
-  retr_stats: 0,
-};
+import defaultConfig from "../configs/default";
+
+// props for which don't exist a field in the form, but still need to be handled
+let virtualProps = {};
 
 const getForm = () => document.querySelector("#upload_options");
 
@@ -47,6 +13,8 @@ export const applyConfigToForm = (selectedConfig) => {
 
     if (input) {
       input.value = selectedConfig.configuration[prop];
+    } else {
+      virtualProps[prop] = selectedConfig.configuration[prop];
     }
   }
 };
@@ -75,10 +43,7 @@ const castTypesHandlers = {
 
     return Number(value);
   },
-  // return this values as it is, just cast string to boolean or number
-  "unlock-higher-power": (value) => castTypes(value),
-  domain: (value) => castTypes(value),
-  "uart-inverted": (value) => castTypes(value),
+  "unlock-higher-power": () => true,
 };
 
 const castTypesMap = new Proxy(castTypesHandlers, {
@@ -88,12 +53,12 @@ const castTypesMap = new Proxy(castTypesHandlers, {
       return target[prop];
     }
 
-    // otherwise, use the default castTypes function
-    return (value) => {
+    return (value, productType) => {
       let typedValue = castTypes(value);
+      const defaultTypedValue = defaultConfig[productType]?.[prop];
 
       // if the typed value is different from the default config, return it
-      if (defaultConfig[prop] !== undefined && defaultConfig[prop] !== typedValue) {
+      if (defaultTypedValue !== undefined && defaultTypedValue !== typedValue) {
         return typedValue;
       }
 
@@ -103,18 +68,22 @@ const castTypesMap = new Proxy(castTypesHandlers, {
   },
 });
 
-export const takeFormValues = () => {
+export const takeFormValues = (productType) => {
   const form = getForm();
   const formData = new FormData(form);
   const values = {};
 
   for (const [key, value] of formData.entries()) {
-    const typedValue = castTypesMap[key](value);
+    const typedValue = castTypesMap[key](value, productType);
 
     if (typedValue) {
       values[key] = typedValue;
     }
   }
 
-  return values;
+  const allValues = { ...values, ...virtualProps };
+
+  virtualProps = {};
+
+  return allValues;
 };

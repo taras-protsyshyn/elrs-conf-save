@@ -21,13 +21,11 @@ export const SaveConfModal = ({ isOpen, onClose }) => {
   const handleSaveNewConf = async (name, updateCurrent) => {
     onClose();
 
-    const configuration = takeFormValues();
-
     const newConfig = {
       id: updateCurrent ? selected.id : Date.now().toString(),
       name,
       type: productType,
-      configuration,
+      configuration: takeFormValues(productType),
       selected: true,
     };
 
