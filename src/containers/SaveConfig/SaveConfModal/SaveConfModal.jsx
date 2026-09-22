@@ -7,13 +7,14 @@ import {
   useELRSConfigsContext,
   useELRSConfigsDispatcherContext,
 } from "../../../context/ELRSConfigsContext";
-
+import { ConfigView } from "../../ConfigView/ConfigView";
 import "./saveConfModal.css";
 
 export const SaveConfModal = ({ isOpen, onClose }) => {
   const dispatch = useELRSConfigsDispatcherContext();
   const configs = useELRSConfigsContext() || [];
   const selected = configs.find((config) => config.selected);
+
   const [updateCurrent, setUpdateCurrent] = useState(false);
   const [name, setName] = useState("");
   const { productType } = useProductTypeContext();
@@ -83,6 +84,10 @@ export const SaveConfModal = ({ isOpen, onClose }) => {
           placeholder="Введіть назву нової конфігурації"
         />
       )}
+
+      <div className="selected-config">
+        <pre>{JSON.stringify(takeFormValues(productType), null, 2)}</pre>
+      </div>
 
       {configs.length === 0 && (
         <p>

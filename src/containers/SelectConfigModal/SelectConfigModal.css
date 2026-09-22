@@ -3,6 +3,7 @@
   margin-top: 16px;
   min-height: 300px;
 }
+
 .config-list {
   min-width: 160px;
 }
@@ -14,6 +15,7 @@
     width: 100%;
   }
 }
+
 .config-item.selected {
   button {
     background-color: #4d4d4d;
@@ -23,10 +25,4 @@
 .footer {
   display: flex;
   justify-content: space-between;
-}
-
-.selected-config {
-  flex-grow: 1;
-  padding: 16px;
-  background-color: #4d4d4d;
 }

@@ -7,6 +7,7 @@ import {
 import { applyConfigToForm } from "../../services/FormService";
 
 import "./SelectConfigModal.css";
+import { ConfigView } from "../ConfigView/ConfigView";
 
 export const SelectConfigModal = ({ isOpen, onClose }) => {
   const configs = useELRSConfigsContext();
@@ -61,9 +62,7 @@ export const SelectConfigModal = ({ isOpen, onClose }) => {
           </li>
         ))}
       </ul>
-      <div className="selected-config">
-        {selectedConfig && <pre>{JSON.stringify(selectedConfig.configuration, null, 2)}</pre>}
-      </div>
+      <ConfigView config={selectedConfig?.configuration} />
     </Modal>
   );
 };

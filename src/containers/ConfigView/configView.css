@@ -1,0 +1,6 @@
+.selected-config {
+  flex-grow: 1;
+  padding: 16px;
+  background-color: #4d4d4d;
+  min-height: 350px;
+}
